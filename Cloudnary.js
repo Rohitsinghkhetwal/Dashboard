@@ -25,4 +25,4 @@ const uploadCloudinary = async(LocaFilePath) => {
     }
 }
 
-export default uploadCloudinary;
+export  {uploadCloudinary};
