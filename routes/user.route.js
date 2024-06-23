@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { LogOut, LoginUser, RegisterUser, deleteUser, getAllUsers, updateUser } from "../Controller/user.controller.js";
+import { CreateEmployee, LogOut, LoginUser, RegisterUser, deleteUser, getAllUsers, updateUser } from "../Controller/user.controller.js";
 import { upload } from "../Multer.js";
 import {VerifyJwt} from "../Middleware.js"
 
@@ -18,5 +18,6 @@ router.route("/getAll").get(VerifyJwt,getAllUsers);
 router.route("/update/:id").put(VerifyJwt, updateUser);
 router.route("/logout").post(VerifyJwt, LogOut);
 router.route("/delete/:id").delete(VerifyJwt, deleteUser);
+router.route("/createUser").post(VerifyJwt, CreateEmployee);
 
 export default router;
