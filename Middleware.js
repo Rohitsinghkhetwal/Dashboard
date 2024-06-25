@@ -12,8 +12,9 @@ export const VerifyJwt = async(req, resp, next) => {
         }
 
         const decodedToken = Jwt.verify(token, process.env.JWT_TOKEN);
+        console.log("this is the decoded token", decodedToken);
         const CurrentUser = await users.findById(decodedToken._id).select("-password");
-        console.log("THis is the current user for CurrentUser", CurrentUser);
+        
 
         if(!CurrentUser) {
             return resp.json("Invalid access token");

@@ -18,6 +18,15 @@ router.route("/getAll").get(VerifyJwt,getAllUsers);
 router.route("/update/:id").put(VerifyJwt, updateUser);
 router.route("/logout").post(VerifyJwt, LogOut);
 router.route("/delete/:id").delete(VerifyJwt, deleteUser);
-router.route("/createUser").post(VerifyJwt, CreateEmployee);
+router.route("/createUser").post(
+  VerifyJwt,
+  upload.fields([
+    {
+      name: "imageUrl",
+      maxCount: 1,
+    },
+  ]),
+  CreateEmployee
+);
 
 export default router;

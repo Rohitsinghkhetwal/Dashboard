@@ -241,7 +241,6 @@ export const deleteUser = async (req, resp) => {
 export const CreateEmployee = async (req, resp) => {
   try {
     const { name, email, mobile, designation, gender, course } = req.body;
-    console.log("req body is here ", req.body);
     if (
       ![name, email, mobile, designation, gender, course].every((field) =>
         field?.trim()
@@ -252,13 +251,16 @@ export const CreateEmployee = async (req, resp) => {
 
 
      const imageUrlLocalPath = req.files?.imageUrl[0].path;
+    
 
      if (!imageUrlLocalPath) {
        resp.status(400).json("Image url path not found !");
      }
 
      //upload to cloudinary
-     const uploadImageToCloudinary = await uploadCloudinary(imageUrlLocalPath);
+     
+     
+      let uploadImageToCloudinary = await uploadCloudinary(imageUrlLocalPath);    
 
      if (!uploadImageToCloudinary || !uploadImageToCloudinary.url) {
        return resp.status(400).json("Image Upload failed !");
@@ -268,11 +270,11 @@ export const CreateEmployee = async (req, resp) => {
        resp.status(401).json("ImageUrl is required !");
      }
 
-     const employee = await users.create({
+     let employee = await users.create({
        name,
        email,
        designation,
-       mobile,
+       mobile,  
        gender,
        imageUrl: uploadImageToCloudinary.url,
        course,
@@ -280,6 +282,6 @@ export const CreateEmployee = async (req, resp) => {
      return resp.status(200).json(employee);
 
   } catch (err) {
-    console.log("Something went wrong !");
+    console.log("Something went wrong !",err);
   }
 };
